@@ -1,76 +1,34 @@
 #i/bin/bash
 
-
-echo "enter the password"
-
-
+echo "enter password"
 read password
 
+length=${#password}
 
-len="${#password}"
+echo $length
 
+if  [[ $length -lt 8 ]]
+then	
+	echo "your password should be more than 8 character"
 
- 
-
-
-if test $len -ge 8 ; then
-
-
- 
-
-
-    echo "$password" | grep -q [0-9]
-
-
-     if test $? -eq 0 ; then
-
-
-           echo "$password" | grep -q [A-Z]
-
-
-                if test $? -eq 0 ; then
-
-
-                    echo "$password" | grep -q [a-z]   
-
-
-                      if test $? -eq 0 ; then
-
-
-                       echo "Strong password"
-
-
-                   else
-
-
-                       echo "weak password include lower case char"
-
-
-                   fi
-
-
-            else
-
-
-               echo "weak password include capital char" 
-
-
-            fi
-
-
-     else
-
-
-       echo "please include the numbers in password it is weak password"   
-
-
-     fi
-
-
-else
-
-
-    echo "password lenght should be greater than or equal 8 hence weak password"
-
-
+	exit 1
 fi
+
+
+if [[ !($password =~ [0-9]) ]];
+then
+	echo "password should contain number"
+	exit 1
+fi
+
+if [[ !($password =~ [a-z] && $password=~[A-Z]) ]];
+then
+        echo "password should contain uppercase and lowercase"
+
+	exit 1
+else 
+   echo "your password is created"
+fi
+
+
+exit 0
